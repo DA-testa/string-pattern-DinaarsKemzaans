@@ -4,7 +4,7 @@ def read_input():
     typeOption = str(input())
     patternData = ""
     lookTextData = ""
-    if(typeOption == "I"):
+    if("I" in typeOption):
         patternData = str(input()).rstrip()
         lookTextData = str(input()).rstrip()
     else:
