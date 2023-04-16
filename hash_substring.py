@@ -8,7 +8,7 @@ def read_input():
         patternData = str(input()).rstrip()
         lookTextData = str(input()).rstrip()
     else:
-        fileName = str(input())
+        fileName = "06"
         fileName = "tests/" + fileName
         with open(fileName, "r") as dataPlace:
             patternData = str(dataPlace.readline()).rstrip()
