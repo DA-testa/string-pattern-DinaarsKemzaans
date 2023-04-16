@@ -1,32 +1,42 @@
-# python3
+#Dinārs Kemzāns 17. grupa 221RDB321
 
 def read_input():
-    # this function needs to aquire input both from keyboard and file
-    # as before, use capital i (input from keyboard) and capital f (input from file) to choose which input type will follow
+    typeOption = str(input())
+    patternData = ""
+    lookTextData = ""
+    if("I" in typeOption):
+        patternData = str(input()).rstrip()
+        lookTextData = str(input()).rstrip()
+    else:
+        fileName = "06"
+        fileName = "tests/" + fileName
+        with open(fileName, "r") as dataPlace:
+            patternData = str(dataPlace.readline()).rstrip()
+            lookTextData = str(dataPlace.readline()).rstrip()
     
-    
-    # after input type choice
-    # read two lines 
-    # first line is pattern 
-    # second line is text in which to look for pattern 
-    
-    # return both lines in one return
-    
-    # this is the sample return, notice the rstrip function
-    return (input().rstrip(), input().rstrip())
+    return (patternData, lookTextData)
 
 def print_occurrences(output):
-    # this function should control output, it doesn't need any return
     print(' '.join(map(str, output)))
 
-def get_occurrences(pattern, text):
-    # this function should find the occurances using Rabin Karp alghoritm 
+def get_occurrences(patternData, lookTextData):
+    qData = 101
+    bData = 256
+    result = []
+    patternHash = 0
+    textHash = 0
+    
+    for m in range(int(len(patternData))):
+        patternHash = (patternHash * bData + ord(patternData[m])) % qData
+        textHash = (textHash * bData + ord(lookTextData[m])) % qData
 
-    # and return an iterable variable
-    return [0]
+    for u in range(int(len(lookTextData) - len(patternData) + 1)):
+        if patternHash == textHash and lookTextData[u:u+len(patternData)] == patternData:
+            result.append(u)
+        if u < (len(lookTextData) - len(patternData)):
+            textHash = ((textHash - ord(lookTextData[u]) * pow(bData, len(patternData) - 1, qData)) * bData + ord(lookTextData[u + len(patternData)])) % qData
+    return result
 
-
-# this part launches the functions
 if __name__ == '__main__':
     print_occurrences(get_occurrences(*read_input()))
 
